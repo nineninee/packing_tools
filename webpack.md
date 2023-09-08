@@ -230,3 +230,33 @@ browserlist: https://github.com/browsesrlist/browserslist
 	"defaults"
 ]
 ```
+
+## 6. 插件（Plugin）
+**loader**是拓展**webpack**处理文件的功能，我们需要新增某些类型的文件就加入对应的**loader**来处理这个文件。
+
+插件用来为**webpack**扩展功能
+
+在前面的实践中，我们都是手动创建`dist/index.html`，但这个需要我们关掉`output`中的`clean`选项，我们现在需要**webpack**在打包的时候自动帮我们生成这样一个html网页。这个功能不涉及打包，只需要自动帮我们创建文件。
+
+**html-webpack-plugin**
+- 这个插件可以在打包代码后，自动在打包目录中生成html页面
+
+使用步骤
+- 安装依赖：`npm i -D html-webpack-plugin`
+- 配置插件
+	- 引入插件： 在`webpack.config.js`中先引入, 然后在plugin配置项中配置
+	- 配置：**HTMLPlugin**中还可以传入配置对象来设置html，比如html的标题，还有直接在指定一个模板，这样就可以按照这个模板在dist目录下生成对应的html，并且会自动插入\<script>引入`main.js`
+```js
+const path = require("path")
+// 引入html插件
+const HTMLPlugin = require("html-webpack-plugin")
+
+module.exports = {
+    plugins: [
+        new HTMLPlugin({
+            // title: "Hello Webpack",
+            template: "./src/index.html"
+        })
+    ],
+}
+```
