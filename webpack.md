@@ -299,3 +299,18 @@ module.exports = {
     }
 }
 ```
+
+## 10. sourceMap
+在上面我们配置了dev这个脚本命令以后，如果执行这个脚本，我们发现目录下并没有打包的dist目录。这是因为它把代码打包到服务器里去实时地运行。
+所以我们在服务器中开发完成以后必须手动build一下，不然dist目录中的代码不是最新的。
+
+项目运行时，我们在浏览器调试工具中查看localhost下的源码main.js，他是不能调试的，并且如果的mode: "development"的话，打包出来的main.js会更加复杂。
+如果我们想要运行打包后的文件，但是调试的时候是我们的源码，就需要配置webpack。设置devtool实现代码映射。
+```js
+module.exports = {
+    devtool: "inline-source-map"
+}
+```
+
+配置完成以后，会多一个demo1文件夹，这样就可以在他下面的index.js文件中进行调试了。
+![[sourceMap.jpg]]
