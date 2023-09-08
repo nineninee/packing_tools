@@ -260,3 +260,42 @@ module.exports = {
     ],
 }
 ```
+
+## 9. 开发服务器
+```json
+{
+    "scripts": {
+        "build": "webpack",
+    }
+}
+```
+现在我们每次打包都要重新`npm build`一下，很麻烦。
+
+可以直接在命令行输入`npm webpack --watch`来监视文件是否发生变化来自动打包，每当我们更改文件内容，就会重新自动打包。
+
+也可以将`npm webpack --watch`直接设置成`package.json`中的脚本命令，这样就可以直接在命令行中输入`npm watch`启动
+```json
+{
+    "scripts": {
+        "build": "webpack",
+        "watch": "webpack --watch"
+    }
+}
+```
+
+但是这种方式我们也不常用，因为watch他是以静态资源的形式去访问的。在真实开发环境中，我们的项目应该部署到服务器上。为了让我们的项目模拟真实的环境，所以在开发的时候通常都希望有一个临时的服务器，这样测试和上线的时候都是服务器。这就要用到webpack-dev-sever
+
+使用步骤：
+- 安装：`npm i -D webpack-dev-server`
+- 使用：直接在命令行中输入`npm webpack server`就能编译打包资源，并放到一个临时服务器上。
+	- `npm webpack server --open`会在打包后直接打开网页
+	- 我们可以将这个命令放到package.json中：`"dev": "webpack server --open"`，这样直接在命令行输入`npm dev`就能执行了
+```json
+{
+    "scripts": {
+        "build": "webpack",
+        "watch": "webpack --watch",
+        "dev": "webpack server --open"
+    }
+}
+```
